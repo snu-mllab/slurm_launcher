@@ -8,5 +8,5 @@ while (( "$#" )); do
   a="$a '$1'"
   shift
 done
-srun bash -c "/home/seungyong/slurm_tutorial_v10/run_general_supp.sh $a"
+srun bash -c "run_general_supp.sh $a"
 
