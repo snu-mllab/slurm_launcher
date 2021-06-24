@@ -79,3 +79,25 @@ def launch_tasks(
             subprocess.check_call(sbatch_cmd, shell=True)
     finally:
         lock.release()
+
+
+def srun_gpuless_task(cmd,
+                      cpus=2,
+                      mem=6000,
+                      partition='dept,titan',
+                      qos='normal',
+                      timeout='12:00:00',
+                      job_name=None):
+    srun_cmd = "srun --partition={} --qos={} --time={} --ntasks=1 --cpus-per-task={} --mem={}".format(
+            partition, qos, timeout, cpus, mem)
+    if job_name is not None:
+        srun_cmd += " --job-name={}".format(job_name)
+    srun_cmd += ' ' + cmd
+    print(srun_cmd)
+    p = subprocess.Popen(srun_cmd, shell=True)
+    srun_pid = p.pid
+    def handler(signum, frame):
+        os.kill(srun_pid, signum)
+    signal.signal(signal.SIGINT, handler)
+    p.wait()
+
