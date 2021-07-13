@@ -7,7 +7,7 @@ setup(
     packages=find_packages(),
     license='MIT',
     description='A library for launching slurm jobs',
-    scripts=['slurm_launcher/run_general.sh', 'slurm_launcher/run_general_supp.sh']
+    scripts=['slurm_launcher/run_general.sh', 'slurm_launcher/run_general_supp.sh'],
     install_requires=[
         'filelock'
     ]
