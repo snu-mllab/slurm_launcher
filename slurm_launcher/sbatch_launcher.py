@@ -4,7 +4,7 @@ from platform import python_version
 import signal
 import subprocess
 import filelock
-
+import pathlib
 from slurm_launcher.sbatch_params import get_sbatch_params
 
 
@@ -58,7 +58,9 @@ def launch_tasks(
                 if (i + j >= len(param_list)):
                     break
                 param = param_list[i + j]
-                cmd = 'python select_env_wrap.py "{}"'.format(base_cmd) + ' ' + ''.join([
+                path = pathlib.Path(__file__).parent.resolve()
+                print(path)
+                cmd = 'python {}/select_env_wrap.py "{}"'.format(path, base_cmd) + ' ' + ''.join([
                     '{} {} '.format(param_keys[key_idx], param[key_idx])
                     for key_idx in range(nkey)
                 ])

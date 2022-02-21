@@ -1,4 +1,4 @@
-from sbatch_launcher import launch_tasks
+from slurm_launcher.sbatch_launcher import launch_tasks
 
 
 def sample_run():
