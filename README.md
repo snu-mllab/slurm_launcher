@@ -11,3 +11,9 @@ pip install -e .
 ## TODO for setup
 * Edit `slurm_launcher/config.py` file: submit the python path to use for each partition
 * Please double check the node partition setting in `slurm_launcher/config.py`
+
+## Example
+```
+cd examples
+python run.py
+```
