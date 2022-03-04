@@ -30,7 +30,8 @@ def launch_tasks(
         exclude: str='',
         qos: str='normal',
         timeout: str='48:00:00',
-        job_name: str=None
+        job_name: str=None,
+        part_to_py: dict=None,
     ):
     """
     Launch slurm jobs
@@ -51,6 +52,17 @@ def launch_tasks(
             v for v in itertools.product(
                 *tuple([param_dict[key] for key in param_keys]))
         ]
+    
+        path = pathlib.Path(__file__).parent.resolve()
+        file = open("{}/config.py".format(path), "w+")
+        file.write("PARTITION2PYTHON = {\n")
+        if part_to_py is not None:
+            for part, env in part_to_py.items():
+                file.write("    '{}' : '{}',\n".format(part, env))
+        else:
+            for part in ['dept', 'titan', 'rtx2080', 'rtx3090']:
+                file.write("    '{}' : 'python',\n".format(part))
+        file.write("}\n")
 
         for i in range(0, len(param_list), nprocs):
             cmd_pair = ""
@@ -58,8 +70,6 @@ def launch_tasks(
                 if (i + j >= len(param_list)):
                     break
                 param = param_list[i + j]
-                path = pathlib.Path(__file__).parent.resolve()
-                print(path)
                 cmd = 'python {}/select_env_wrap.py "{}"'.format(path, base_cmd) + ' ' + ''.join([
                     '{} {} '.format(param_keys[key_idx], param[key_idx])
                     for key_idx in range(nkey)
