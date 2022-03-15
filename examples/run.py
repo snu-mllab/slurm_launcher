@@ -10,11 +10,17 @@ def sample_run():
         }
 
     PART_TO_PY = {
-        'dept' : '~/anaconda3/envs/SAC/bin/python', #python
-        'titan' : '~/anaconda3/envs/SAC/bin/python', #python
-        'rtx2080' : '~/anaconda3/envs/SAC/bin/python', #python
-        'rtx3090' : '~/anaconda3/envs/SAC3090/bin/python', #python
+        'dept' : '~/anaconda3/envs/pt1/bin/python', #python
+        'titan' : '~/anaconda3/envs/pt2/bin/python', #python
+        'rtx2080' : '~/anaconda3/envs/pt3/bin/python', #python
+        'rtx3090' : '~/anaconda3/envs/pt4/bin/python', #python
     }
+    
+    '''
+    the last parameter of launch_tasks is optional.
+    use default value to use the python of the
+    activated environment when you launch the job.
+    '''
 
     launch_tasks(
         param_option=1,
