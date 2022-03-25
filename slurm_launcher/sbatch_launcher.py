@@ -63,6 +63,7 @@ def launch_tasks(
             for part in ['dept', 'titan', 'rtx2080', 'rtx3090']:
                 file.write("    '{}' : 'python',\n".format(part))
         file.write("}\n")
+        file.close()
 
         for i in range(0, len(param_list), nprocs):
             cmd_pair = ""
