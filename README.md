@@ -14,3 +14,21 @@ Please refer to `examples/run.py`.
 cd examples
 python run.py
 ```
+
+## MNIST example & Tensorboard tutorial
+* Installation of tensorboard
+```
+pip install tensorboardX
+pip install tensorboard
+```
+
+* Run MNIST training
+```
+cd mnist_example
+python main.py
+```
+
+* Run tensorboard
+```
+python tensorboard.py
+```
