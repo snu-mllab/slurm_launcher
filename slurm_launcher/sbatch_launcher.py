@@ -6,7 +6,7 @@ import subprocess
 import filelock
 import pathlib
 from slurm_launcher.sbatch_params import get_sbatch_params
-
+import time
 
 def create_dir(dirname: str):
     """
@@ -64,6 +64,11 @@ def launch_tasks(
                 file.write("    '{}' : 'python',\n".format(part))
         file.write("}\n")
 
+        file = open("{}/config.py".format(path), "r")
+        print("print config.py contents")
+        print(file.read())
+        file.close()
+        
         for i in range(0, len(param_list), nprocs):
             cmd_pair = ""
             for j in range(nprocs):
