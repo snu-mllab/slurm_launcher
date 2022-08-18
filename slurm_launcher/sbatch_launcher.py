@@ -63,6 +63,7 @@ def launch_tasks(
             for part in ['dept', 'titan', 'rtx2080', 'rtx3090']:
                 file.write("    '{}' : 'python',\n".format(part))
         file.write("}\n")
+        file.close()
 
         file = open("{}/config.py".format(path), "r")
         print("print config.py contents")

@@ -1,4 +1,4 @@
 DEPTNodes = ['garnet','amethyst', 'aquamarine', 'diamond','emerald','pearl','ruby','peridot']
 TITANNodes = ['alan', 'blaise','carl','david','euclid','floyd', 'geoffrey', 'hamming','isaac','john','kalman','leonhard','maxwell','nobel','ohm','poincare','quant', 'rene', 'sergey','tao','ufc','violin']
 RTX2080Nodes = ['weber','xavier','yolo','zealot', 'apple', 'banana', 'cherry', 'donut', 'egg', 'fish', 'grape', 'hotdog', 'icecream', 'jelly']
-RTX3090Nodes = ['kiwi', 'lemon', 'mango', 'nutella', 'orange', 'peach', 'quiznos', 'radish', 'tomato', 'udon']
+RTX3090Nodes = ['kiwi', 'lemon', 'mango', 'nutella', 'orange', 'peach', 'quiznos', 'radish', 'tomato', 'udon', 'vanilla', 'watermelon']
