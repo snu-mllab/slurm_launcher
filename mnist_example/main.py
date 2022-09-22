@@ -61,9 +61,25 @@ def main():
     # Training settings
     parser = argparse.ArgumentParser(description='PyTorch MNIST Example')
     parser.add_argument('--lr', type=float, default=1.0, help='learning rate (default: 1.0)')
+    parser.add_argument('--seed', type=int, default=0, help='random seed')
     parser.add_argument('--boarddir', type=str, default='./board', help='tensorboard directory')
     args = parser.parse_args()
 
+    USER = os.environ['USER']
+    JOB_NAME  = os.environ['SLURM_JOB_NAME']
+    JOB_ID  = os.environ['SLURM_JOB_ID']
+
+    PROJ_DIR = f"/home/{USER}/packages/slurm_launcher/mnist_example"
+    OUT_FILE_PATH = os.path.join(PROJ_DIR, "slurm", JOB_NAME, JOB_ID + ".out")
+
+    LINK_DIR = os.path.join("link", JOB_NAME, str(args.lr))
+    LINK_PATH = os.path.join(LINK_DIR, str(args.seed) + ".link")
+
+    os.makedirs(LINK_DIR, exist_ok=True)
+    print(f"Link {LINK_PATH} to {OUT_FILE_PATH}")
+    os.system(f"ln -s {OUT_FILE_PATH} {LINK_PATH}")
+
+    torch.random.manual_seed(args.seed)
     transform=transforms.Compose([transforms.ToTensor(), transforms.Normalize((0.1307,), (0.3081,))])
 
     DATADIR = "/data_large/readonly/"

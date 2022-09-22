@@ -1,8 +1,8 @@
 from slurm_launcher.sbatch_launcher import launch_tasks
 
-
 def sample_run():
     PYTHON_FILE = "python ./main.py" # do not include 'python' in your file name
+    PYTHON_BIN = '~/anaconda3/envs/pt1/bin/python'
     PARAM_DICT = {
         "--seed" : [0, 1, 2, 3, 4],
         # "--lr": [1e-1, 1e-2, 1e-3, 1e-4],
@@ -10,10 +10,10 @@ def sample_run():
         }
 
     PART_TO_PY = {
-        'dept' : '~/anaconda3/envs/pt1/bin/python', #python
-        'titan' : '~/anaconda3/envs/pt2/bin/python', #python
-        'rtx2080' : '~/anaconda3/envs/pt3/bin/python', #python
-        'rtx3090' : '~/anaconda3/envs/pt4/bin/python', #python
+        'dept' : PYTHON_BIN,
+        'titan' : PYTHON_BIN,
+        'rtx2080' : PYTHON_BIN,
+        'rtx3090' : PYTHON_BIN,
     }
     
     '''
@@ -27,7 +27,6 @@ def sample_run():
         base_cmd=PYTHON_FILE,
         param_dict=PARAM_DICT,
         partition='rtx3090',
-        exclude='',
         qos='normal',
         timeout='INFINITE',
         job_name='sample',
