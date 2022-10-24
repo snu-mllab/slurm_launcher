@@ -1,11 +1,9 @@
 import os
 import sys
-import argparse
-import pwd
 import socket
 
-from partition_info import DEPTNodes, TITANNodes, RTX2080Nodes, RTX3090Nodes
-from config import PARTITION2PYTHON
+from slurm_launcher.partition_info import DEPTNodes, TITANNodes, RTX2080Nodes, RTX3090Nodes
+from slurm_launcher.config import PARTITION2PYTHON
 
 script = sys.argv[1]
 
@@ -24,8 +22,8 @@ else:
     print("Uncovered hostname({})".format(hostname))
 
 if partition in PARTITION2PYTHON.keys():
-    script = script.replace("python", "{}".format(PARTITION2PYTHON[partition]))
-script = script +' '+ ' '.join(sys.argv[2:])
+    script = script.replace("python", PARTITION2PYTHON[partition])
+script = script + ' ' + ' '.join(sys.argv[2:])
 
-print("hostname : {}, partition : {}, script : {}".format(hostname, partition, script))
+print("hostname : {}, partition : {}, script : {}".format(hostname, partition, script), flush=True)
 os.system(script)

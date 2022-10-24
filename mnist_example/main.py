@@ -100,7 +100,10 @@ def main():
     tensorboardwrite = SummaryWriterManager(boardsubdir)
     ################################################
 
-    for epoch in range(1, 15):
+    best_test_acc, best_test_loss = 0.0, 1e11
+    num_epoch = 15
+    
+    for epoch in range(num_epoch):
         model.train()
         for batch_idx, (data, target) in enumerate(train_loader):
             data, target = data.to(device), target.to(device)
@@ -113,10 +116,11 @@ def main():
         test_loss, test_acc = test(model, device, test_loader)
         train_loss, train_acc = test(model, device, train_loader)
 
-        print("Test")
-        print('Loss: {:.4f}, Accuracy : {:.4f}'.format(test_loss, test_acc))
-        print("Train")
-        print('Loss: {:.4f}, Accuracy : {:.4f}'.format(train_loss, train_acc))
+        best_test_acc = max(test_acc, best_test_acc)
+        best_test_loss = min(test_loss, best_test_loss)
+
+        print('Epoch [{:2d}/{:2d}] Train Loss: {:.4f}, Train Accuracy : {:.4f}'.format(epoch, num_epoch, train_loss, train_acc))
+        print('Epoch [{:2d}/{:2d}] Test Loss: {:.4f}, Test Accuracy : {:.4f}'.format(epoch, num_epoch, test_loss, test_acc))
 
         ################################################
         write_content = {
@@ -128,5 +132,7 @@ def main():
         ################################################
         scheduler.step()
 
+    return best_test_acc, best_test_loss
+
 if __name__ == '__main__':
-    main()
+    sys.exit(main())
