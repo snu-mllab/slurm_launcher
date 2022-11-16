@@ -88,6 +88,11 @@ def launch_tasks(
     print(file.read())
     file.close()
 
+    if job_name is not None:
+        create_dir('./slurm/{}'.format(job_name))
+    else:
+        create_dir('./slurm')
+
     sbatch_cmds = []
     for i in range(0, len(param_list), nprocs):
         cmd_pair = ""
@@ -107,11 +112,9 @@ def launch_tasks(
             sbatch_cmd += ' --exclude {}'.format(exclude)
 
         if job_name is not None:
-            create_dir('./slurm/{}'.format(job_name))
             sbatch_cmd += " --job-name={} --output ./slurm/{}/%j.out".format(
                 job_name, job_name)
         else:
-            create_dir('./slurm')
             sbatch_cmd += " --output ./slurm/%j.out"
 
         sbatch_cmd += " run_general.sh {}".format(cmd_pair)
