@@ -2,7 +2,7 @@ from slurm_launcher.sbatch_launcher import launch_tasks
 
 def sample_run():
     PYTHON_FILE = "python ./main.py" # do not include 'python' in your file name
-    PYTHON_BIN = '~/anaconda3/envs/pt1/bin/python'
+    PYTHON_BIN = '~/anaconda3/bin/python'
     PARAM_DICT = {
         "--seed" : [0, 1, 2, 3, 4],
         # "--lr": [1e-1, 1e-2, 1e-3, 1e-4],
@@ -14,6 +14,7 @@ def sample_run():
         'titan' : PYTHON_BIN,
         'rtx2080' : PYTHON_BIN,
         'rtx3090' : PYTHON_BIN,
+        'deepmetrics' : PYTHON_BIN,
     }
     
     '''
