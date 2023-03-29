@@ -13,6 +13,7 @@ def sample_run():
         'titan' : PYTHON_BIN,
         'rtx2080' : PYTHON_BIN,
         'rtx3090' : PYTHON_BIN,
+        'a100' : PYTHON_BIN,
         'deepmetrics' : PYTHON_BIN,
     }
     
@@ -26,7 +27,7 @@ def sample_run():
         param_option=1,
         base_cmd=PYTHON_FILE,
         param_dict=PARAM_DICT,
-        partition='dept,titan,rtx2080,rtx3090',
+        partition='dept,titan,rtx2080,rtx3090,a100',
         exclude=None,
         qos='normal',
         timeout='INFINITE',

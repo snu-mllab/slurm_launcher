@@ -43,7 +43,7 @@ def launch_tasks(
         param_option: int,
         base_cmd: str,
         param_dict: dict,
-        partition: str='dept,titan,rtx2080,rtx3090',
+        partition: str='dept,titan,rtx2080,rtx3090,a100',
         exclude: str=None,
         qos: str='normal',
         timeout: str='INFINITE',
@@ -78,7 +78,7 @@ def launch_tasks(
         for part, env in part_to_py.items():
             file.write("    '{}' : '{}',\n".format(part, env))
     else:
-        for part in ['dept', 'titan', 'rtx2080', 'rtx3090']:
+        for part in ['dept', 'titan', 'rtx2080', 'rtx3090', 'a100']:
             file.write("    '{}' : 'python',\n".format(part))
     file.write("}\n")
     file.close()
