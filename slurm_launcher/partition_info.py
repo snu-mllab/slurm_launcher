@@ -3,4 +3,5 @@ TITANNodes = ['alan', 'blaise', 'carl', 'david', 'euclid', 'floyd', 'geoffrey', 
 RTX2080Nodes = ['weber', 'xavier', 'yolo', 'zealot', 'apple', 'banana', 'cherry', 'donut', 'egg', 'fish', 'grape', 'hotdog', 'icecream', 'jelly']
 RTX3090Nodes = ['kiwi', 'lemon', 'mango', 'nutella', 'orange', 'peach', 'quiznos', 'radish', 'tomato', 'udon', 'vanilla', 'watermelon', 'xoi', 'yogurt']
 A100Nodes = ['zinger']
+CPUNodes = ['geoffrey']
 DEEPMETRICSNodes = ['strawberry']

@@ -2,7 +2,7 @@ import os
 import sys
 import socket
 
-from slurm_launcher.partition_info import DEPTNodes, TITANNodes, RTX2080Nodes, RTX3090Nodes, A100Nodes, DEEPMETRICSNodes
+from slurm_launcher.partition_info import DEPTNodes, TITANNodes, RTX2080Nodes, RTX3090Nodes, A100Nodes, CPUNodes, DEEPMETRICSNodes
 from slurm_launcher.config import PARTITION2PYTHON
 
 script = sys.argv[1]
@@ -20,6 +20,8 @@ elif hostname in RTX3090Nodes:
     partition = 'rtx3090'
 elif hostname in A100Nodes:
     partition = 'a100'
+elif hostname in CPUNodes:
+    partition = 'cpu'
 elif hostname in DEEPMETRICSNodes:
     partition = 'deepmetrics'
 else:

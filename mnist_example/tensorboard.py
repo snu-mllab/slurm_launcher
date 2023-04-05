@@ -18,7 +18,7 @@ def run_tensorboard():
     TENSORBOARD_DIR = "./board"
     srun_gpuless_task(
             cmd=r"""bash -c 'tensorboard --host=$(hostname).mllab.snu.ac.kr --port=0 --logdir={}'""".format(TENSORBOARD_DIR),
-            partition='dept,titan,rtx2080,rtx3090',
+            partition='cpu,dept,titan,rtx2080,rtx3090',
             job_name='tensorboard',
     )
 

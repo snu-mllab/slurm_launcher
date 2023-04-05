@@ -14,6 +14,7 @@ def sample_run():
         'rtx2080' : PYTHON_BIN,
         'rtx3090' : PYTHON_BIN,
         'a100' : PYTHON_BIN,
+        'cpu' : PYTHON_BIN,
         'deepmetrics' : PYTHON_BIN,
     }
     

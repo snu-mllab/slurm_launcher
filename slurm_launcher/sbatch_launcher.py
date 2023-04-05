@@ -78,7 +78,7 @@ def launch_tasks(
         for part, env in part_to_py.items():
             file.write("    '{}' : '{}',\n".format(part, env))
     else:
-        for part in ['dept', 'titan', 'rtx2080', 'rtx3090', 'a100']:
+        for part in ['dept', 'titan', 'rtx2080', 'rtx3090', 'a100', 'cpu']:
             file.write("    '{}' : 'python',\n".format(part))
     file.write("}\n")
     file.close()
