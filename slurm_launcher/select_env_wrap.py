@@ -28,7 +28,7 @@ else:
     print("Uncovered hostname({})".format(hostname))
 
 if partition in PARTITION2PYTHON.keys():
-    script = script.replace("python", PARTITION2PYTHON[partition])
+    script = script.replace("python", PARTITION2PYTHON[partition], 1)
 script = script + ' ' + ' '.join(sys.argv[2:])
 
 print("hostname : {}, partition : {}, script : {}".format(hostname, partition, script), flush=True)
