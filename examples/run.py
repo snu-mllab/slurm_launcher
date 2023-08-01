@@ -31,7 +31,7 @@ def sample_run():
         param_dict=PARAM_DICT,
         partition='rtx3090',
         qos='normal',
-        timeout='INFINITE',
+        timeout='7-0',
         job_name='sample',
         part_to_py=PART_TO_PY,
     ) 

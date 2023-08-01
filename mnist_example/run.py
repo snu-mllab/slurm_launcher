@@ -31,7 +31,7 @@ def sample_run():
         partition='dept,titan,rtx2080,rtx3090,a100',
         exclude=None,
         qos='normal',
-        timeout='INFINITE',
+        timeout='7-0',
         job_name='mnist_example',
         max_job_num=10,
         return_after_finish=False,

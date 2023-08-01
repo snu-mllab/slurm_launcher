@@ -46,7 +46,7 @@ def launch_tasks(
         partition: str='dept,titan,rtx2080,rtx3090,a100',
         exclude: str=None,
         qos: str='normal',
-        timeout: str='INFINITE',
+        timeout: str='7-0',
         job_name: str=None,
         max_job_num: int=40,
         return_after_finish: bool=False,
