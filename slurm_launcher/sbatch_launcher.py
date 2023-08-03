@@ -5,6 +5,7 @@ import signal
 import subprocess
 import filelock
 import pathlib
+import json
 from slurm_launcher.sbatch_params import get_sbatch_params
 from slurm_launcher.partition_info import *
 
@@ -72,21 +73,12 @@ def launch_tasks(
     ]
 
     path = pathlib.Path(__file__).parent.resolve()
-    file = open("{}/config.py".format(path), "w+")
-    file.write("PARTITION2PYTHON = {\n")
-    if part_to_py is not None:
-        for part, env in part_to_py.items():
-            file.write("    '{}' : '{}',\n".format(part, env))
-    else:
-        for part in ['dept', 'titan', 'rtx2080', 'rtx3090', 'a100', 'cpu']:
-            file.write("    '{}' : 'python',\n".format(part))
-    file.write("}\n")
-    file.close()
-
-    file = open("{}/config.py".format(path), "r")
-    print("print config.py contents")
-    print(file.read())
-    file.close()
+    if part_to_py is None:
+        part_to_py = {part: "python" for part in partition.split(',')}
+    config_path = os.path.join(pathlib.Path(__file__).parent.resolve(), "configs",
+                               f"config_{job_name}.json")
+    with open(config_path, 'w') as f:
+        json.dump(part_to_py, f)
 
     if job_name is not None:
         create_dir('./slurm/{}'.format(job_name))
@@ -100,7 +92,7 @@ def launch_tasks(
             if (i + j >= len(param_list)):
                 break
             param = param_list[i + j]
-            cmd = 'python {}/select_env_wrap.py "{}"'.format(path, base_cmd) + ' ' + ''.join([
+            cmd = 'python {}/select_env_wrap.py "{}" "{}"'.format(path, job_name, base_cmd) + ' ' + ''.join([
                 '{} {} '.format(param_keys[key_idx], param[key_idx])
                 for key_idx in range(nkey)
             ])

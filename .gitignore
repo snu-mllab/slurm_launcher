@@ -3,3 +3,11 @@ __pycache__/
 
 # Distribution / packaging
 *.egg-info/
+
+# config files
+*.json
+
+# example
+mnist_example/link
+mnist_example/slurm
+mnist_example/board
