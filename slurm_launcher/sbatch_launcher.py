@@ -6,6 +6,7 @@ import subprocess
 import filelock
 import pathlib
 import json
+from typing import Dict
 from slurm_launcher.sbatch_params import get_sbatch_params
 from slurm_launcher.partition_info import *
 
@@ -40,6 +41,16 @@ def wait_finish(job_name, username, concatenator="!"):
         else:
             time.sleep(60)
 
+def join_params_by_style(param_keys: Dict[int, str], param: Dict[int, str], style: str):
+    if style == "argparse":
+        return ' '.join(['{} {}'.format(param_keys[key_idx], param[key_idx])
+            for key_idx in range(len(param_keys))])
+    elif style == "hydra":
+        return ' '.join(['{}={}'.format(param_keys[key_idx].lstrip("--"), param[key_idx])
+            for key_idx in range(len(param_keys))])
+    else:
+        raise NotImplementedError(f"style {style} is not supported")
+
 def launch_tasks(
         param_option: int,
         base_cmd: str,
@@ -52,6 +63,7 @@ def launch_tasks(
         max_job_num: int=40,
         return_after_finish: bool=False,
         part_to_py: dict=None,
+        args_style: str="argparse",
     ):
     """
     Launch slurm jobs
@@ -66,7 +78,6 @@ def launch_tasks(
     gpus = sbp_dict['gpus']
 
     param_keys = [str(v) for v in param_dict.keys()]
-    nkey = len(param_keys)
     param_list = [
         v for v in itertools.product(
             *tuple([param_dict[key] for key in param_keys]))
@@ -92,10 +103,8 @@ def launch_tasks(
             if (i + j >= len(param_list)):
                 break
             param = param_list[i + j]
-            cmd = 'python {}/select_env_wrap.py "{}" "{}"'.format(path, job_name, base_cmd) + ' ' + ''.join([
-                '{} {} '.format(param_keys[key_idx], param[key_idx])
-                for key_idx in range(nkey)
-            ])
+            cmd = 'python {}/select_env_wrap.py "{}" "{}"'.format(path, job_name, base_cmd) + ' '
+            cmd += join_params_by_style(param_keys, param, args_style)
             cmd_pair += "'{}'".format(cmd) + " "
         sbatch_cmd = "sbatch --partition={} --qos={} --time={} --ntasks={} --cpus-per-task={} --mem={} --gres=gpu:{}".format(
             partition, qos, timeout, nprocs, cpus, mem, gpus)
