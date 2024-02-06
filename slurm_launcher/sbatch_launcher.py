@@ -23,7 +23,7 @@ def create_dir(dirname: str):
         except FileExistsError:
             pass
     else:
-        print("Already %s exists" % dirname)
+        print("%s already exists" % dirname)
 
 def count_job(job_name, username, concatenator="!"):
     target_string = username + concatenator + job_name
@@ -91,10 +91,10 @@ def launch_tasks(
     with open(config_path, 'w') as f:
         json.dump(part_to_py, f)
 
+    log_dir = "./slurm"
     if job_name is not None:
-        create_dir('./slurm/{}'.format(job_name))
-    else:
-        create_dir('./slurm')
+        log_dir = os.path.join(log_dir, job_name) 
+    create_dir(log_dir)
 
     sbatch_cmds = []
     for i in range(0, len(param_list), nprocs):
@@ -113,10 +113,10 @@ def launch_tasks(
             sbatch_cmd += ' --exclude {}'.format(exclude)
 
         if job_name is not None:
-            sbatch_cmd += " --job-name={} --output ./slurm/{}/%j.out".format(
-                job_name, job_name)
+            sbatch_cmd += " --job-name={} --output {}/%j.out".format(
+                job_name, log_dir)
         else:
-            sbatch_cmd += " --output ./slurm/%j.out"
+            sbatch_cmd += " --output {}/%j.out".format(log_dir)
 
         sbatch_cmd += " run_general.sh {}".format(cmd_pair)
         sbatch_cmds.append(sbatch_cmd)
