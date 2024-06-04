@@ -46,7 +46,7 @@ def get_sbatch_params(gpu_options):
         gpus=1
     elif gpu_options==10:
         nprocs=1
-        cpus=1
+        cpus=2
         mem=6000
         gpus=0
     elif gpu_options==20:
@@ -54,15 +54,40 @@ def get_sbatch_params(gpu_options):
         cpus=2
         mem=12000
         gpus=0
+    elif gpu_options==40:
+        nprocs=1
+        cpus=4
+        mem=24000
+        gpus=0
+    elif gpu_options==100:
+        nprocs=1
+        cpus=10
+        mem=60000
+        gpus=0
+    elif gpu_options==400:
+        nprocs=1
+        cpus=40
+        mem=240000
+        gpus=0
     elif gpu_options==450:
         nprocs=1
         cpus=45
         mem=240000
         gpus=0
+    elif gpu_options==500:
+        nprocs=1
+        cpus=50
+        mem=400000
+        gpus=0
     elif gpu_options==600:
         nprocs=1
         cpus=60
-        mem=480000
+        mem=300000
+        gpus=0
+    elif gpu_options==800:
+        nprocs=1
+        cpus=80
+        mem=400000
         gpus=0
     elif gpu_options==900:
         nprocs=1
