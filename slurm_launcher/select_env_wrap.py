@@ -5,7 +5,7 @@ import json
 import pathlib
 
 from slurm_launcher.partition_info import DEPTNodes, TITANNodes, RTX2080Nodes, \
-    RTX3090Nodes, A100Nodes, RTX6000ANodes, CPUNodes, DEEPMETRICSNodes
+    RTX3090Nodes, A100Nodes, ADANodes, CPUNodes, DEEPMETRICSNodes
 
 job_name = sys.argv[1]
 script = sys.argv[2]
@@ -23,8 +23,8 @@ elif hostname in RTX3090Nodes:
     partition = 'rtx3090'
 elif hostname in A100Nodes:
     partition = 'a100'
-elif hostname in RTX6000ANodes:
-    partition = 'rtx6000a'
+elif hostname in ADANodes:
+    partition = 'ada'
 elif hostname in CPUNodes:
     partition = 'cpu'
 elif hostname in DEEPMETRICSNodes:

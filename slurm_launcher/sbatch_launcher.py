@@ -55,7 +55,7 @@ def launch_tasks(
         param_option: int,
         base_cmd: str,
         param_dict: dict,
-        partition: str='dept,titan,rtx2080,rtx3090,a100',
+        partition: str='dept,titan,rtx2080,rtx3090,a100,ada',
         exclude: str=None,
         qos: str='normal',
         timeout: str='7-0',
